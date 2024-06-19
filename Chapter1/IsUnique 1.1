@@ -1,0 +1,57 @@
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+// The Solution class which contains the isUnique method
+class Solution {
+public:
+    // Method to determine if a string has all unique characters
+    bool isUnique(string s) {
+        // Early exit if the string length is greater than 128
+        // There are only 128 unique ASCII characters, so a string longer than that must contain duplicates
+        if (s.length() > 128) {
+            return false;
+        }
+
+        // Initialize a boolean vector of size 128 to keep track of character occurrences
+        vector<bool> char_set(128, false);
+
+        // Iterate over each character in the string
+        for (char c : s) {
+            // Get the ASCII value of the character
+            int val = c;
+
+            // If the character has already been encountered (char_set[val] is true), return false
+            if (char_set[val]) {
+                return false;
+            }
+
+            // Mark the character as encountered by setting char_set[val] to true
+            char_set[val] = true;
+        }
+
+        // If no duplicates are found, return true
+        return true;
+    }
+};
+
+// Main function to test the isUnique method
+int main() {
+    Solution solution;
+    
+    // Test cases
+    string test1 = "leetcode";
+    string test2 = "abc";
+    
+    // Check if the strings have all unique characters
+    bool result1 = solution.isUnique(test1);
+    bool result2 = solution.isUnique(test2);
+    
+    // Print the results
+    cout << "Is \"" << test1 << "\" unique? " << (result1 ? "Yes" : "No") << endl;
+    cout << "Is \"" << test2 << "\" unique? " << (result2 ? "Yes" : "No") << endl;
+    
+    return 0;
+}
